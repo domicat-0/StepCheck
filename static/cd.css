@@ -1,0 +1,48 @@
+body {
+    font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+    margin: auto;
+}
+
+div {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+h1 {
+    background-color: burlywood;
+    font-size: 22px;
+    width: 30%;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: auto;
+    text-align: center;
+    border-radius: 7px;
+}
+
+table {
+    border: #1f1e33 2px !important;
+    color: #1f1e33;
+    font-size: 14px;
+    background-color: aliceblue;
+    width: 92%;
+    height: 92%;
+    margin: auto;
+    padding: 4%;
+    border-radius: 3px;
+}
+
+.head {
+    border: mediumslateblue 2px !important;
+    color: #1f1e33;
+    font-size: 16px;
+    background-color: lightslategray;
+    padding-bottom: 7px;
+}
+
+th {
+    border-radius: 3px;
+}
+
+body {
+    background-color: bisque;
+}
