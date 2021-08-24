@@ -48,5 +48,25 @@
         {% endfor %}
         </tbody>
     </table>
+    <table border="1" id="courses">
+        <thead class="head">
+            <tr>
+                {% for col in c_cols %}
+
+
+                <th> {{col}} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in c_rows %}
+            <tr>
+                {% for el in row %}
+                <th> {{row[el]}} </th>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

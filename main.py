@@ -6,8 +6,9 @@ import numpy as np
 import pandas as pd
 import datetime
 import configparser
+from flask import Markup
 
-parser = configparser.ConfigParser
+parser = configparser.ConfigParser()
 parser.read('config.ini')
 
 diff_names = ['beginner', 'easy', 'medium', 'hard', 'challenge', 'edit']
@@ -23,6 +24,8 @@ root = lxml.etree.parse(stats_url).getroot()
 for i in root:
     if i.tag == 'SongScores':
         song_scores = i
+    if i.tag == 'CourseScores':
+        course_scores = i
     if i.tag == 'GeneralData':
         for j in i:
             if j.tag == 'DisplayName':
@@ -31,6 +34,8 @@ for i in root:
 for i in root_waterfall:
     if i.tag == 'SongScores':
         song_scores_waterfall = i
+    if i.tag == 'CourseScores':
+        course_scores_waterfall = i
 
 
 
@@ -145,11 +150,83 @@ class Song:
 
                 self.scores.append(Score(score, self.hash, diff_level))
 
+class Course:
+    def __init__(self, path):
+
+        self.path = path
+        with open(self.path, 'rb') as f:
+            h = hashlib.md5()
+            h.update(f.read())
+            self.hash = h.hexdigest()
+
+        self.bad = False
+        self.scores = []
+
+        if self.get_scores() == -1:
+            self.bad = True
+
+        self.title = None
+        self.songs = []
+
+        with open(self.path, 'r', encoding='utf-8') as f:
+            self.raw_data = [a.rstrip() for a in f.readlines()]
+        with open(self.path, 'rb') as f:
+            h = hashlib.md5()
+            h.update(f.read())
+            self.hash = h.hexdigest()
 
 
+        lineparse = r'#(.*?):(.*?)(?::(.*?))?;'
+        in_data = False
+        for line in range(len(self.raw_data)):
+            if re.match(lineparse, self.raw_data[line]):
+                parsed_line = re.match(lineparse, self.raw_data[line]).groups()
+            else:
+                continue
+            if parsed_line[0] == 'COURSE':
+                self.title = parsed_line[1]
+            elif parsed_line[0] == 'METER':
+                self.level = int(parsed_line[2])
+            elif parsed_line[0] == 'SONG':
+                self.songs.append(Song(glob.glob(game_dir + '/Songs/' + parsed_line[1] + '/*.s*')[0]).title)
+                if '*' in parsed_line[1]:
+                    self.bad = True
 
 
+    def get_scores(self):
 
+        data = None
+        for course in course_scores:
+            if course.get('Path') in self.path.replace('\\', '/'):
+                for trail in course:
+                    if trail.get('CourseDifficulty') == 'Medium':
+                        data = trail
+                    break
+
+        for course in course_scores_waterfall:
+            if course.get('Path') in self.path.replace('\\', '/'):
+                for trail in course:
+                    if trail.get('CourseDifficulty') == 'Medium':
+                        data = trail
+                break
+
+        #if data is None:
+        #    return -1
+
+        high_score_list = []
+        for k in data:
+            if k.tag == 'HighScoreList':
+                high_score_list = k
+
+        score = None
+        for k in high_score_list:
+            if k.tag == 'HighScore':
+                score = k
+
+            if score is None:
+                continue
+
+            self.scores.append(Score(score, self.hash, None))
 
 
 class Score:
@@ -247,6 +324,23 @@ def all_ecfa():
     p2 = p2.head(10)
     p1 = p1.head(30)
     return p1, p2 # Top 50, top 20 of recent 50
+
+def all_courses():
+    zeta = glob.glob(game_dir+'/Courses/*/*.crs')
+    courses = []
+    scores = []
+    p1 = []
+    for i in zeta:
+        s = Course(i)
+        if s.bad:
+            # continue
+            pass
+        for i in s.scores:
+            p1.append({'Title': s.title,
+                       'Songs': Markup('<br>'.join(s.songs)),
+                       'Percent': round(i.percent * 100, 2),
+                       'Timestamp': i.datetime})
+        return pd.DataFrame(p1)
 
 def ovr_ecfa(data, rec):
     v = data['Potential'][:50]
