@@ -75,7 +75,7 @@ class Song:
                     sp, st, te, mo, ti, g = [int(i) for i in m[:5]] + [m[5]]
                     g = ['none', 'light', 'medium', 'heavy', 'cmod'].index(g)
                     g %= 4
-                    delta = 2*(sp + st + te + mo + ti + 3*g) // 5 - 7
+                    delta = 2*(sp + 0.6*st + te + mo + ti + 3*g) // 5 - 6
                 elif parsed_line[0] == 'TITLE':
                     self.title = parsed_line[1]
 

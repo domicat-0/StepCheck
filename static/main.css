@@ -1,0 +1,176 @@
+body {
+    display: flex;
+    flex-direction: row;
+    column-gap: 3%
+}
+
+
+#ecfa-data {
+    flex-basis: 0;
+    flex-grow: 999;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3%;
+}
+#sidebar {
+    flex-basis: min(max(20%, 0.75in), 3in);
+    flex-grow: 1;
+    background-color: antiquewhite;
+}
+
+#sidebar > h2 {
+    text-align: center;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+}
+#sidebar > #ecfa-potential {
+    margin: auto;
+    height: 30px;
+    line-height: 30px;
+    width: 70px;
+    text-align: center;
+
+    grid-column: 1;
+    grid-row: 1;
+
+    border: solid #1f1e33 2px;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #353839;
+    color: white;
+}
+
+.ecfa-level {
+    background-color: antiquewhite;
+    padding: 3%;
+
+}
+
+.ecfa-level-title {
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+    text-align: center;
+}
+
+/* grid styling */
+
+.ecfa-level-body {
+    padding: 5px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.04in;
+    justify-content: center;
+}
+
+/* song card styling */
+
+.song {
+    display: grid;
+    grid-template-columns: 1.4fr 1.2fr 1.2fr;
+    grid-template-rows: 2fr 1fr;
+    border: solid #1f1e33 1px;
+    border-radius: 0.04in;
+    align-items: start;
+}
+
+.song.fc {
+
+}
+.song.fail {
+    background-color: darkgray;
+}
+
+.song p {
+    text-align: center;
+    font-family: "Lucinda Grande", "Lucinda Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+    padding: 3%
+}
+
+/* song-level styling */
+
+.song > .song-level {
+    margin: auto;
+    height: 30px;
+    line-height: 30px;
+    width: 50px;
+    text-align: center;
+
+    grid-column: 1;
+    grid-row: 1;
+
+    border: solid #1f1e33 2px;
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #353839;
+    color: white;
+}
+
+.song.max > .song-level {
+    color: royalblue;
+}
+.song.fec > .song-level {
+    color: gold;
+}
+
+.song.fc > .song-level {
+    color: aquamarine;
+}
+
+.song.fail > .song-level {
+    color: coral;
+}
+
+/* non song-level styling */
+
+.song-title {
+    margin: auto;
+    grid-column: 2 / 4;
+    grid-row: 1;
+    font-size: 16px;
+}
+.song-percent {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 12px;
+}
+.song-potential {
+    grid-column: 3;
+    grid-row: 2;
+    font-size: 12px;
+}
+
+/* level colors */
+
+#ecfa-7-body .song:not(.fail) {
+    background-color: #66ddaa;
+}
+#ecfa-8-body .song:not(.fail) {
+    background-color: #6cc0bb;
+}
+
+#ecfa-9-body .song:not(.fail) {
+    background-color: #71a3cc;
+}
+
+#ecfa-10-body .song:not(.fail) {
+    background-color: #7686dd;
+}
+
+#ecfa-11-body .song:not(.fail) {
+    background-color: #7b68ee;
+}
+
+#ecfa-12-body .song:not(.fail) {
+    background-color: #6a5cc1;
+}
+
+#ecfa-13-body .song:not(.fail) {
+    background-color: #585094;
+    color: #ffa585;
+}
+
+#ecfa-14-body .song:not(.fail) {
+    background-color: #474467;
+    color: coral;
+}
+

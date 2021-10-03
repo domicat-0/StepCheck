@@ -43,7 +43,7 @@ class Score:
 
         self.status = 'Pass'
         if self.grade != 'Failed':
-            if self.note_data['miss'] == self.note_data['way_off'] == self.note_data['decent'] == self.note_data['great'] == 0:
+            if self.note_data['miss'] == self.note_data['way_off'] == self.note_data['decent'] == 0:
                 self.status = 'FC'
                 if self.note_data['great'] == 0:
                     self.status = 'FEC'

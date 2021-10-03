@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>StepCheck+</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+<div id="ecfa-data">
+    {% for level in [14, 13, 12, 11, 10, 9, 8, 7] %}
+        <div class="ecfa-level">
+        <div id="{{ 'ecfa-{}-title'.format(level) }}" class="ecfa-level-title">
+            <h2 class="level-title"> Level {{ level }}</h2>
+        </div>
+        <div id="{{ 'ecfa-{}-body'.format(level) }}" class="ecfa-level-body">
+            {% for row in max_by_level[level].itertuples() %}
+                <div class="song max">
+                    <p> </p>
+                    <p class="song-level"> {{ _level(row.Level) }} </p>
+                    <p class="song-title"> {{ row.Title }} </p>
+                    <p class="song-percent"> {{ row.Percent|string + '%' }} </p>
+                    <p class="song-potential"> {{ row.Potential|string + 'ptt'}} </p>
+                </div>
+            {% endfor %}
+            {% for row in fec_by_level[level].itertuples() %}
+                <div class="song fec">
+                    <p> </p>
+                    <p class="song-level"> {{ _level(row.Level) }} </p>
+                    <p class="song-title"> {{ row.Title }} </p>
+                    <p class="song-percent"> {{ row.Percent|string + '%' }} </p>
+                    <p class="song-potential"> {{ row.Potential|string + 'ptt'}} </p>
+                </div>
+            {% endfor %}
+
+            {% for row in fc_by_level[level].itertuples() %}
+                <div class="song fc">
+                    <p> </p>
+                    <p class="song-level"> {{ _level(row.Level) }} </p>
+                    <p class="song-title"> {{ row.Title }} </p>
+                    <p class="song-percent"> {{ row.Percent|string + '%' }} </p>
+                    <p class="song-potential"> {{ row.Potential|string + 'ptt'}} </p>
+                </div>
+            {% endfor %}
+
+            {% for row in by_level[level].itertuples() %}
+                <div class="song">
+                    <p> </p>
+                    <p class="song-level"> {{ _level(row.Level) }} </p>
+                    <p class="song-title"> {{ row.Title }} </p>
+                    <p class="song-percent"> {{ row.Percent|string + '%' }} </p>
+                    <p class="song-potential"> {{ row.Potential|string + 'ptt'}} </p>
+                </div>
+            {% endfor %}
+
+            {% for row in fail_by_level[level].itertuples() %}
+                <div class="song fail">
+                    <p> </p>
+                    <p class="song-level"> {{ _level(row.Level) }} </p>
+                    <p class="song-title"> {{ row.Title }} </p>
+                    <p class="song-percent"> {{ row.Percent|string + '%' }} </p>
+                    <p class="song-potential"> {{ row.Potential|string + 'ptt'}} </p>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+    {% endfor %}
+
+</div>
+<div id="sidebar">
+    <h2> User </h2>
+    <p id="ecfa-potential"> {{ ptt }} </p>
+
+
+
+</div>
+</body>
+</html>

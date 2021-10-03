@@ -33,7 +33,8 @@ def parse_all():
                        'Level': s.diffs[i.diff]/10,
                        'Percent': round(i.percent * 100, 2),
                        'Potential': ptt(s.diffs[i.diff]/10, i.percent),
-                       'Timestamp': i.datetime})
+                       'Timestamp': i.datetime,
+                       'Status': i.status})
 
     ecfa_results = pd.DataFrame(ecfa_results)
     return ecfa_results
